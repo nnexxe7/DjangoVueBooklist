@@ -38,14 +38,32 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "NavBar",
   data() {
     return {
+      query: "",
+      results: [],
       showInput: false,
     };
   },
   methods: {
+    search() {
+      if (!this.query) {
+        return;
+      }
+      axios
+        .get(`http://localhost:8000/search/?q=${this.query}`)
+        .then((response) => {
+          this.results = JSON.parse(JSON.stringify(response.data));
+          this.$router.push({ name: "SearchResult", query: { q: this.query } });
+          this.showInput = false;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
     showSearchInput() {
       this.showInput = true;
     },
