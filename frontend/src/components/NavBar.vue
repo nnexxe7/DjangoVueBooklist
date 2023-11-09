@@ -1,55 +1,28 @@
-<template>
-  <header>
-    <div class="logo"><a href="/">My Site</a></div>
-    <nav>
-      <ul>
-        <li>
-          <a href="#"><i class="fas fa-envelope"></i> Contact</a>
-        </li>
-        <li>
-          <a href="#"><i class="fas fa-book"></i> Books</a>
-        </li>
-        <li>
-          <a href="#"><i class="fas fa-list"></i> List</a>
-        </li>
-        <li>
-          <a href="#" @click="showSearchInput"
-            ><i class="fas fa-search"></i> Search</a
-          >
-        </li>
-        <li>
-          <a href="#"><i class="fas fa-sign-in-alt"></i> Log In</a>
-        </li>
-      </ul>
-    </nav>
-    <div :class="{ hidden: !showInput }">
-      <input
-        v-model="query"
-        type="text"
-        placeholder=" Search..."
-        spellcheck="false"
-      />
-      <div class="search-icons">
-        <i v-if="showInput" class="fas fa-search" @click="search"></i>
-        <i v-if="showInput" class="fas fa-times" @click="closeSearchInput"></i>
-      </div>
-    </div>
-  </header>
-</template>
-
 <script>
-import axios from "axios";
-export default {
-  name: "NavBar",
-  data() {
-    return {
-      query: "",
-      results: [],
-      showInput: false,
-    };
-  },
-  methods: {
-    search() {
+  import SidebarLink from './SidebarLink'
+  import { collapsed, toggleSidebar, sidebarWidth } from './state'
+  import axios from "axios";
+
+  export default {
+    props: {},
+    components: { SidebarLink },
+    setup() {
+      return { collapsed, toggleSidebar, sidebarWidth }
+    },
+    data() {
+      return {
+        hided: false,
+        searchOpen: false,
+        query: "",
+        results: [],
+      };
+    },
+    methods: {
+      showSearch() {
+        this.hided = !this.hided;
+        this.collapsed = false
+      },
+      search() {
       if (!this.query) {
         return;
       }
@@ -64,107 +37,84 @@ export default {
           console.error(error);
         });
     },
-    showSearchInput() {
-      this.showInput = true;
     },
-    closeSearchInput() {
-      this.showInput = false;
-    },
-  },
-};
+  }
 </script>
 
-<style scoped>
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #f1f1f1;
-  height: 60px;
-  max-height: 60px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  margin-top: 2px;
-  margin-right: 5px;
-  margin-left: 5px;
-}
+  <template>
+    <div class="sidebar" :style="{ width: sidebarWidth }">
+      <h1>
+        <span v-if="collapsed">
+          <div>V</div>
+          <div>S</div>
+        </span>
+        <span v-else>Vue Sidebar</span>
+      </h1>
 
-.logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-  text-decoration: none;
-}
+        
+      <SidebarLink to="/" icon="fas fa-columns">Dashboard</SidebarLink>
+      <SidebarLink to="/analytics" icon="fas fa-chart-bar">Analytics</SidebarLink>
+      <SidebarLink to="/friends" icon="fas fa-users">Friends</SidebarLink>
+      <SidebarLink to="" @click="showSearch" icon="fas fa-search">Search</SidebarLink>
+      <input v-if="hided" v-model="query" type="text" placeholder="Type here to search ..." class="sidebar-link" />
+      <button v-if="hided" @click="search">Search for book</button>
 
-.logo a {
-  text-decoration: none;
-  color: #333;
-  margin-left: 10px;
-}
 
-nav ul {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
 
-nav ul li {
-  margin-left: 1rem;
-}
+      
+      <span
+        class="collapse-icon"
+        :class="{ 'rotate-180': collapsed }"
+        @click="toggleSidebar"
+      >
+        <i class="fas fa-angle-double-left" />
+      </span>
+    </div>
+  </template>
 
-nav ul li:first-child {
-  margin-left: 0;
-}
+  <style>
+  :root {
+    --sidebar-bg-color: #2f855a;
+    --sidebar-item-hover: #38a169;
+    --sidebar-item-active: #276749;
+  }
+  </style>
 
-nav ul li a {
-  display: flex;
-  align-items: center;
-  color: #555;
-  text-decoration: none;
-  margin-right: 10px;
-}
+  <style scoped>
+  .sidebar {
+    color: white;
+    background-color: var(--sidebar-bg-color);
 
-nav ul li a:hover {
-  color: #000;
-}
+    float: left;
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    padding: 0.5em;
 
-nav ul li a i {
-  margin-right: 0.5rem;
-}
+    transition: 0.3s ease;
 
-nav ul li a span {
-  margin-left: 0.5rem;
-}
+    display: flex;
+    flex-direction: column;
+  }
 
-.hidden {
-  display: none;
-}
+  .sidebar h1 {
+    height: 2.5em;
+  }
 
-div input {
-  position: absolute;
-  left: 0;
-  right: 0;
-  margin-top: 8px;
-  top: 0;
-  width: 95%;
-  height: 50px;
-  align-items: center;
-  border: none;
-  background-color: #f1f1f1;
-  margin-left: 0.5rem;
-  font-size: 1.75em;
-  border-radius: 5px;
-}
+  .collapse-icon {
+    position: absolute;
+    bottom: 0;
+    padding: 0.75em;
 
-input[type="text"] {
-  padding: 0;
-}
+    color: rgba(255, 255, 255, 0.7);
 
-.search-icons i:nth-child(2) {
-  margin-right: 10px;
-}
+    transition: 0.2s linear;
+  }
 
-.search-icons i:nth-child(1) {
-  margin-right: 20px;
-}
-</style>
+  .rotate-180 {
+    transform: rotate(180deg);
+    transition: 0.2s linear;
+  }
+  </style>

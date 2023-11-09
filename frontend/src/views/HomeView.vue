@@ -1,5 +1,9 @@
 <template>
-  <div class="gallery-wrapper">
+  <div class="container">
+    <div class="twenty-percent">
+    </div>
+    <div class="eighty-percent">
+      <div class="gallery-wrapper">
     <div class="swiper-container">
       <div class="swiper-wrapper">
         <div class="swiper-slide">
@@ -24,8 +28,8 @@
           </div>
         </div>
       </div>
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-button-next"></div>
+    </div>
+  </div>
     </div>
   </div>
 </template>
@@ -43,10 +47,6 @@ export default {
       centeredSlides: true,
       grabCursor: true,
       preloadImages: 0,
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      },
       autoplay: {
         delay: 5000,
         disableOnInteraction: false,
@@ -59,6 +59,20 @@ export default {
 <style>
 * {
   margin: 0;
+}
+
+.container {
+  display: flex;
+  height: 100vh; /* Ustawienie na całą wysokość okna przeglądarki */
+}
+
+.twenty-percent {
+  width: 2%;
+}
+
+.eighty-percent {
+  width: 98%;
+  box-sizing: border-box;
 }
 
 .gallery-wrapper {
@@ -93,6 +107,6 @@ export default {
 .swiper-button-prev,
 .swiper-button-next {
   position: absolute;
-  top: 25%;
+  top: 13%;
 }
 </style>

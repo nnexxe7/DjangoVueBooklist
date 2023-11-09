@@ -13,6 +13,7 @@
 
 <script>
 import axios from "axios";
+
 export default {
   name: "SearchResult",
   data() {
@@ -21,15 +22,26 @@ export default {
       query: this.$route.query.q,
     };
   },
+  watch: {
+    '$route.query.q'(newVal) {
+      this.query = newVal;
+      this.fetchResults();
+    },
+  },
   created() {
-    axios
-      .get(`http://localhost:8000/search/?q=${this.query}`)
-      .then((response) => {
-        this.results = response.data.results;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    this.fetchResults();
+  },
+  methods: {
+    fetchResults() {
+      axios
+        .get(`http://localhost:8000/search/?q=${this.query}`)
+        .then((response) => {
+          this.results = response.data.results;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
 };
 </script>
