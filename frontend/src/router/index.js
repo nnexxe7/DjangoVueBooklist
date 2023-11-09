@@ -1,22 +1,28 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import SearchResult from '../views/SearchResultPage.vue'
+import { createRouter, createWebHistory } from "vue-router";
+import HomeView from "../views/HomeView.vue";
+import SearchResult from "../views/SearchResultPage.vue";
+import BookDetail from "../views/BookDetail.vue";
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
+    path: "/",
+    name: "home",
+    component: HomeView,
   },
-  { 
-    path: '/search-result',
-    name: 'SearchResult',
+  {
+    path: "/search-result",
+    name: "SearchResult",
     component: SearchResult,
   },
-]
+  {
+    path: "/book/:bookName",
+    name: "BookDetail",
+    component: BookDetail,
+  },
+];
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;

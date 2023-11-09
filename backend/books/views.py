@@ -17,3 +17,15 @@ def search(request):
             }
         )
     return JsonResponse({"results": results})
+
+def get_book_details(request, book_name):
+    try:
+        book = Book.objects.get(name=book_name)
+        book_details = {
+            "name": book.name,
+            "author": book.author,
+            "image": book.image.url,
+        }
+        return JsonResponse(book_details)
+    except Book.DoesNotExist:
+        return JsonResponse({"error": "Book not found"}, status=404)
