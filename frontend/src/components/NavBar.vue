@@ -55,7 +55,9 @@ export default {
 
     <SidebarLink to="/" icon="fas fa-columns">Dashboard</SidebarLink>
     <SidebarLink to="/analytics" icon="fas fa-chart-bar">Analytics</SidebarLink>
+
     <SidebarLink to="/friends" icon="fas fa-sign-in-alt">Log In</SidebarLink>
+
     <SidebarLink to="" @click="showSearch" icon="fas fa-search"
       >Search</SidebarLink
     >
@@ -83,6 +85,7 @@ export default {
   --sidebar-bg-color: #2f855a;
   --sidebar-item-hover: #38a169;
   --sidebar-item-active: #276749;
+  position: relative;
 }
 </style>
 

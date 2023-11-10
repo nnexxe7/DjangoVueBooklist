@@ -18,13 +18,14 @@ def search(request):
         )
     return JsonResponse({"results": results})
 
-def get_book_details(request, book_name):
+def get_book_details(request, book_name, book_author):
     try:
-        book = Book.objects.get(name=book_name)
+        book = Book.objects.get(name=book_name, author=book_author)
         book_details = {
             "name": book.name,
             "author": book.author,
             "image": book.image.url,
+            # Dodaj inne szczegóły książki, jeśli są dostępne
         }
         return JsonResponse(book_details)
     except Book.DoesNotExist:

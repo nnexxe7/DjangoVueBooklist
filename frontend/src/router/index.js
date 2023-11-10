@@ -15,7 +15,7 @@ const routes = [
     component: SearchResult,
   },
   {
-    path: "/book/:bookName",
+    path: "/book/:bookName/:bookAuthor",
     name: "BookDetail",
     component: BookDetail,
   },

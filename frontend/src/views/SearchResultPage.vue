@@ -5,7 +5,7 @@
       <div class="mid">
         <h1>Search results for: "{{ query }}"</h1>
         <ul v-for="result in results" :key="result.id">
-          <router-link :to="'/book/' + result.name">
+          <router-link :to="'/book/' + result.name + '/' + result.author">
             <div class="result-item">
               <img
                 class="result-image"

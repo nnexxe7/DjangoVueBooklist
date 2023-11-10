@@ -26,8 +26,9 @@ export default {
   methods: {
     fetchBookDetails() {
       const bookName = this.$route.params.bookName;
+      const bookAuthor = this.$route.params.bookAuthor;
       axios
-        .get(`http://localhost:8000/book/${bookName}`)
+        .get(`http://localhost:8000/book/${bookName}/${bookAuthor}`)
         .then((response) => {
           this.bookDetails = response.data;
         })

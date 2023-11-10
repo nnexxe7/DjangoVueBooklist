@@ -1,35 +1,34 @@
 <template>
   <div class="container">
-    <div class="twenty-percent">
-    </div>
+    <div class="twenty-percent"></div>
     <div class="eighty-percent">
       <div class="gallery-wrapper">
-    <div class="swiper-container">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide">
-          <img src="@/assets/swiper1.jpg" />
-          <div class="slide-text">
-            <h2>Title</h2>
-            <p>Description</p>
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <img src="@/assets/swiper2.jpg" />
-          <div class="slide-text">
-            <h2>Title 2</h2>
-            <p>Description 2</p>
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <img src="@/assets/swiper3.jpg" />
-          <div class="slide-text">
-            <h2>Title 3</h2>
-            <p>Description 3</p>
+        <div class="swiper-container">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="@/assets/swiper1.jpg" />
+              <div class="slide-text">
+                <h2>Title</h2>
+                <p>Description</p>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <img src="@/assets/swiper2.jpg" />
+              <div class="slide-text">
+                <h2>Title 2</h2>
+                <p>Description 2</p>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <img src="@/assets/swiper3.jpg" />
+              <div class="slide-text">
+                <h2>Title 3</h2>
+                <p>Description 3</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
     </div>
   </div>
 </template>
