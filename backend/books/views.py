@@ -14,6 +14,7 @@ def search(request):
                 "name": book.name,
                 "author": book.author,
                 "image": book.image.url,
+                 # Tu sie potem doda wiecej informacji
             }
         )
     return JsonResponse({"results": results})
@@ -25,7 +26,7 @@ def get_book_details(request, book_name, book_author):
             "name": book.name,
             "author": book.author,
             "image": book.image.url,
-            # Dodaj inne szczegóły książki, jeśli są dostępne
+            # Tu sie potem doda wiecej informacji
         }
         return JsonResponse(book_details)
     except Book.DoesNotExist:
